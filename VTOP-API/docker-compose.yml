@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    image: vtop-api:latest
+    container_name: vtop-backend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - RUST_LOG=vtop_api=info,tower_http=info
+      - HOST=0.0.0.0
+      - PORT=3000
+      - VTOP_BASE_URL=${VTOP_BASE_URL:-https://vtopcc.vit.ac.in/vtop}
+      - SESSION_TTL_SECS=${SESSION_TTL_SECS:-1800}
